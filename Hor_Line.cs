@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Snake_Project
 {
-    class Hor_Line
+    class Hor_Line : Figure
     {
-        List<Point> pList;
-
         public Hor_Line(int xLeft, int xRight, int y, char sym)
         {
             pList = new List<Point>();
@@ -18,14 +16,6 @@ namespace Snake_Project
             {
                 Point p = new Point(x, y, sym);
                 pList.Add(p);
-            }
-        }
-
-        public void Draw()
-        {
-            foreach (Point p in pList)
-            {
-                p.Draw();
             }
         }
     }
