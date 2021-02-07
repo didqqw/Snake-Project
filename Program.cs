@@ -14,10 +14,10 @@ namespace Snake_Project
             Console.SetBufferSize(120, 30);
             
             // Отрисовка краев 
-            Hor_Line upLine = new Hor_Line(0, 78, 0, '_');
-            Hor_Line downLine = new Hor_Line(0, 78, 24, '_');
-            Ver_Line rightLine = new Ver_Line(0, 24, 0, '|');
-            Ver_Line leftLine = new Ver_Line(0, 24, 78, '|');
+            Hor_Line upLine = new Hor_Line(0, 78, 0, '+');
+            Hor_Line downLine = new Hor_Line(0, 78, 24, '+');
+            Ver_Line rightLine = new Ver_Line(0, 24, 0, '+');
+            Ver_Line leftLine = new Ver_Line(0, 24, 78, '+');
             upLine.Draw();
             downLine.Draw();
             leftLine.Draw();
@@ -26,7 +26,7 @@ namespace Snake_Project
             
             // Точки
             Point p = new Point(4, 5, '*');
-            p.Draw();
+            Snake snake = new Snake(p, 4, Direction.RIGHT);
             
             /*Point p1 = new Point(1, 3, '*');
             p1.Draw();
