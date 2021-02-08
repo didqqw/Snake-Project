@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -37,18 +38,32 @@ namespace Snake_Project
             FoodCreator foodCreator = new FoodCreator(120, 30, '*');
             Point food = foodCreator.CreateFood();
             food.Draw();
+            
+            //back music
+            Params settings = new Params();
+            
+            Sounds sounds = new Sounds(settings.GetResourceFolder());
+            sounds.Play();
+            Sounds sounds3 = new Sounds(settings.GetResourceFolder());
+            sounds.Play();
+            Sounds sounds1 = new Sounds(settings.GetResourceFolder());
+            Sounds sounds2 = new Sounds(settings.GetResourceFolder());
+            
 
             while (true)
             {
                 if (walls.IsHit(snake) || snake.IsHitTail())
                 {
                     Console.WriteLine("Game Over");
+                    sounds2.GameOver();
+                    Thread.Sleep(2000);
                     break;
                 }
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
                     food.Draw();
+                    sounds1.PlayEat();
                 }
                 else
                 {
