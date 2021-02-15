@@ -19,7 +19,7 @@ namespace Snake_Project
             }
         }
 
-        public override void Draw()
+        public void Draw()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 

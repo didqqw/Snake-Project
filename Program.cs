@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Snake_Project
 {
@@ -13,31 +8,21 @@ namespace Snake_Project
     {
         static void Main(string[] args)
         {
-            Console.SetBufferSize(120, 31);
-
-            Walls walls = new Walls(120, 31);
+            Console.SetBufferSize(120, 50);
+            
+            // Отрисовка краев
+            Walls walls = new Walls(80, 25);
             walls.Draw();
 
-
-            // Отрисовка краев   
-            Hor_Line upLine = new Hor_Line(0, 119, 0, '▼');
-            Hor_Line downLine = new Hor_Line(0, 119, 30, '▲');
-            Ver_Line leftLine = new Ver_Line(0, 29, 0, '►');
-            Ver_Line rightLine = new Ver_Line(0, 29, 119, '◄');
-            upLine.Draw();
-            downLine.Draw();
-            leftLine.Draw();
-            rightLine.Draw();
-            
             
             // Точки
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Draw();
 
-            FoodCreator foodCreator = new FoodCreator(120, 30, '*');
+            FoodCreator foodCreator = new FoodCreator(80, 25, '*');
             Point food = foodCreator.CreateFood();
-            food.Draw();
+            food.Draw(ConsoleColor.Yellow);
             
             //back music
             Params settings = new Params();
@@ -49,33 +34,53 @@ namespace Snake_Project
             Sounds sounds1 = new Sounds(settings.GetResourceFolder());
             Sounds sounds2 = new Sounds(settings.GetResourceFolder());
             
+            // score
+            Score score = new Score(settings.GetResourceFolder());
+
+
+            //Timer
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             while (true)
             {
                 if (walls.IsHit(snake) || snake.IsHitTail())
                 {
-                    Console.WriteLine("Game Over");
-                    sounds2.GameOver();
-                    Thread.Sleep(2000);
+                    score.WriteGameOver();
                     break;
                 }
+
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
-                    food.Draw();
-                    sounds1.PlayEat();
+                    food.Draw(ConsoleColor.Yellow);
+                    sounds2.PlayEat();
+                    score.UpCurrentPoints();
+                    score.ShowCurrentPoints();
                 }
                 else
                 {
                     snake.Move();
                 }
-                Thread.Sleep(100);
+
+                Thread.Sleep(75);
+
                 if (Console.KeyAvailable)
                 {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    snake.HandleKey(key.Key);
+                    snake.HandleKey(Console.ReadKey(true).Key); //score);
+
                 }
+                TimeSpan timeSpan = TimeSpan.FromSeconds(Convert.ToInt32(stopwatch.Elapsed.TotalSeconds));
+                Console.SetCursorPosition(93, 23);
+                Console.Write(timeSpan.ToString("mm':'ss"));
+                Console.Write('\r');
+                
             }
+
+            score.WriteBestResult();
+            score.WriteGameOver();
+            
+            //Console.ReadKey();
         }
     }
 }

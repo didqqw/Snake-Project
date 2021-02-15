@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Snake_Project
 {
@@ -19,7 +16,7 @@ namespace Snake_Project
             }
         }
         
-        public override void Draw()
+        public void Draw()
         {
             Console.ForegroundColor = ConsoleColor.Green;
 

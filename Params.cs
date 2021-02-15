@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake_Project
 {
@@ -14,16 +9,15 @@ namespace Snake_Project
 
         public Params()
         {
-            var ind = Directory.GetCurrentDirectory().ToString().IndexOf("bin", StringComparison.Ordinal);
+            var ind = Directory.GetCurrentDirectory().ToString().IndexOf("bin", StringComparison.Ordinal); 
 
-            string binFolder = Directory.GetCurrentDirectory().ToString().Substring(0, ind).ToString();
-
-            resourcesFolder = binFolder + "recources\\";
+            string binFolder = Directory.GetCurrentDirectory().ToString().Substring(0, ind).ToString(); resourcesFolder = binFolder + "resources\\";
         }
 
         public string GetResourceFolder()
         {
             return resourcesFolder;
         }
+
     }
 }

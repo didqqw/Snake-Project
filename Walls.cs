@@ -1,29 +1,29 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Snake_Project
 {
-    class Walls
+    public class Walls
     {
-        static List<Figure> wallList;
+        private List<Figure> wallList;
 
         public Walls(int mapWidth, int mapHeight)
         {
             wallList = new List<Figure>();
+
+            int widthScoreWall = 30;
             
-            // Отрисовка краев   
-            Hor_Line upLine = new Hor_Line(0, mapWidth - 2, 0, '▼');
-            Hor_Line downLine = new Hor_Line(0, mapWidth - 2, mapHeight - 1, '▲');
-            Ver_Line leftLine = new Ver_Line(0, mapHeight - 1, 0, '►');
-            Ver_Line rightLine = new Ver_Line(0, mapHeight - 1, mapWidth -2, '◄');
+            // Draw box
+            Hor_Line upLine = new Hor_Line(0, mapWidth + widthScoreWall, 0, '+');
+            Hor_Line downLine = new Hor_Line(0, mapWidth + widthScoreWall, mapHeight - 1, '+');
+            Ver_Line leftLine = new Ver_Line(0, mapHeight - 1, 0, '+');
+            Ver_Line rightLine = new Ver_Line(0, mapHeight - 1, mapWidth - 2, '+');
+            Ver_Line scoreRightWall = new Ver_Line(0, mapHeight - 1, mapWidth + widthScoreWall, '+');
             wallList.Add(upLine);
             wallList.Add(downLine);
             wallList.Add(leftLine);
             wallList.Add(rightLine);
+            wallList.Add(scoreRightWall);
         }
 
         internal bool IsHit(Figure figure)

@@ -1,26 +1,19 @@
 using System;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake_Project
 {
-    class Point
+    public class Point
     {
         public int x;
         public int y;
         public char sym;
 
-        public Point()
+        // Constructor
+        public Point(int x, int y, char sym)
         {
-        }
-
-        public Point(int _x, int _y, char _sym)
-        {
-            x = _x;
-            y = _y;
-            sym = _sym;
+            this.x = x;
+            this.y = y;
+            this.sym = sym;
         }
 
         public Point(Point p)
@@ -34,19 +27,19 @@ namespace Snake_Project
         {
             if (direction == Direction.RIGHT)
             {
-                x = x + offset;
+                x += offset;
             }
             else if (direction == Direction.LEFT)
             {
-                x = x - offset;
+                x -= offset;
             }
             else if (direction == Direction.UP)
             {
-                y = y - offset;
+                y -= offset;
             }
             else if (direction == Direction.DOWN)
             {
-                y = y + offset;
+                y += offset;
             }
         }
 
@@ -55,10 +48,13 @@ namespace Snake_Project
             return p.x == this.x && p.y == this.y;
         }
 
-        public void Draw()
+        public void Draw(ConsoleColor foreg = ConsoleColor.DarkCyan)
         {
+            Console.BackgroundColor = default;
+            Console.ForegroundColor = foreg;
             Console.SetCursorPosition(x, y);
             Console.Write(sym);
+            Console.CursorVisible = false;
         }
 
         public void Clear()
